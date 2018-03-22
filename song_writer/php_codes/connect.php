@@ -1,4 +1,8 @@
-<?php include 'config.php'; ?>
+<?php 
+	include_once '../../php_codes/class.database.php';
+	include_once '../../php_codes/class.mdsongwriter.php';
+	include_once 'config.php';
+?>
 
 <!DOCTYPE html>
 <html>
@@ -33,76 +37,14 @@
 
 	<div class="container-fluid">
 
-		<section class="login-section">
+		<section class="login-section content-center">
 			
 			<h3 class="display-4">#MDSongWriter Connexion</h3>
 			
 			<?php
 				if (isset($_POST['login']) && isset($_POST['password'])) {
 
-					$form = '
-						<form method="POST" action="connect.php">
-
-							<div class="div-login-input">
-								<input type="text" name="login" class="login-input" id="login-input" placeholder="Login..." value="'.$_POST['login'].'">
-							</div>
-
-							<div class="div-login-input">
-								<input type="password" name="password" class="login-input" id="password-input" placeholder="Password..." value="'.$_POST['password'].'">
-							</div>
-
-							<div class="div-submit-button">
-								<button type="submit" class="submit-button" id="login-button"><i class="icon-login-1"></i> Sign in</button>
-							</div>
-
-						</form>
-					';
-
-					$login = strip_tags($_POST['login']);
-					$password = strip_tags($_POST['password']);
-
-					// Récuperation et vérification des informations de connexion
-					try {
-						
-						$statment = $db -> prepare("SELECT * FROM mdsongwriter where login = :login");
-						$statment -> bindParam(':login', $login);
-						$statment -> execute();
-						$nb_result = $statment -> rowCount();
-						$get = $statment -> fetch();
-						
-						if ($nb_result == 0) {
-							echo "<div class='alert alert-danger'> <strong>Oh snap!</strong> This login is wrong! </div>";
-							echo $form;
-						}
-
-						else {
-
-							$n_login = htmlspecialchars($get["login"]);
-							$n_password = htmlspecialchars($get["password"]);
-							
-							if (CRYPT_BLOWFISH == 1) {
-								$Cn_password = crypt($password, '$2y$17$Df/2kl0.zf2pOM9/7dsPQn.5Gt3Xt/a8i$');
-							}
-							
-							if (hash_equals($Cn_password, $n_password)) {
-
-								$_SESSION["login"] = $n_login;
-								
-								header('location:../home.php');
-
-							}
-
-							else {
-								echo "<div class='alert alert-danger'> <strong>Oh snap!</strong> This password is wrong! </div>";
-								echo $form;
-							}
-						}
-					} catch (Exception $e) {
-						echo "<div class='alert alert-danger'> <strong>Oh snap!</strong> An error occured at the time of your connexion! Please try again! </div>";
-						echo $form;
-					}
-
-					$statment -> closeCursor();
+					$DefaultMDSwriter->connexion($_POST['login'], $_POST['password']);
 
 				} else {
 					header("location:../");

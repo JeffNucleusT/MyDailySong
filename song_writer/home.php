@@ -1,5 +1,9 @@
 <?php 
-	include 'php_codes/config.php'; 
+	include_once '../php_codes/class.database.php';
+	include_once '../php_codes/class.mdsongwriter.php';
+	include_once 'php_codes/config.php';
+
+	$OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
 	
 	if (isset($_SESSION['login'])) {
 

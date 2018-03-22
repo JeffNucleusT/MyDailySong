@@ -1,5 +1,10 @@
 <?php 
-	include 'php_codes/config.php'; 
+	include_once '../php_codes/class.database.php';
+	include_once '../php_codes/class.mdsongwriter.php';
+	include_once '../php_codes/class.song.php';
+	include_once 'php_codes/config.php';
+
+	$OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
 	
 	if (isset($_SESSION['login'])) {
 
@@ -56,7 +61,7 @@
 	
 			<h3 class="display-4 mb-4 mt-4">Add a new song</h3>
 
-			<form class="new-song-form mt-4" method="POST" ENCTYPE="multipart/form-data" action="php_codes/save_song.php">
+			<form class="new-song-form mt-4" method="POST" ENCTYPE="multipart/form-data" action="php_codes/songCreate.php">
 				
 				<div class="form-group row">
 					<label for="name_song" class="col-sm-2 col-form-label">Song File</label>
@@ -96,7 +101,7 @@
 				<label class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="existMeditation">
 					<span class="custom-control-indicator"></span>
-					<span class="custom-control-description">I want to include meditations with song !</span>
+					<span class="custom-control-description">I want to include meditations to this song !</span>
 				</label>
 
 				<div class="form-group row div-meditation">
@@ -113,7 +118,7 @@
 				<div class="form-group row">
 					<label for="release_date" class="col-sm-2 col-form-label">Release date</label>
 					<div class="col-sm-10">
-						<input type="date" name="release_date" class="form-control" id="release_date" required>
+						<input type="date" name="release_date" class="form-control" id="release_date" min="<?php echo date('Y-m-d'); ?>" required>
 						<small class="form-text text-muted">Choose the release date of this song.</small>
 					</div>
 				</div>

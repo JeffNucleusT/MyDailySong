@@ -6,18 +6,6 @@ $(function () {
 	});
 
 	// Navigation
-	function toggleNav(btn, laClasse) {
-		if (laClasse === 'toOpen') {
-			$('#showNavBtn i:last').attr('class', 'icon-cancel-outline');
-			$('.navbar').addClass('open', 1000);
-			$(btn).attr('class', 'toClose');
-		} else {
-			$('#showNavBtn i:last').attr('class', 'icon-menu-3');
-			$('.navbar').removeClass('open', 1000);
-			$(btn).attr('class', 'toOpen');
-		}
-		return false;
-	}
 	$('#showNavBtn').click(function () {
 		toggleNav(this, $(this).attr('class'));
 	});
@@ -29,12 +17,6 @@ $(function () {
 	});
 
 	// to the top
-	function toTheTop() {
-		$('html, body').animate({
-			scrollTop : 0
-		}, 600);
-		return false;
-	}
 	$('#toTop').click(function () {
 		toTheTop();
 	});
@@ -46,44 +28,7 @@ $(function () {
 
 		var vote = 'like';
 
-		$.ajax({
-			type : 'POST',
-			url : 'like-dislike.php',
-			data : 'id_song=' + id_song + '&vote=' + vote,
-
-			success : function (result) {
-				if (result.includes('vote_success')) {
-					$('#likeBtn').css({
-						'transform' : 'scale(1.2)'
-					}).attr('disabled', '');
-
-					if ($('#dislikeBtn').prop('disabled') == true) {
-						$('#dislikeBtn').removeAttr('disabled').attr({
-							'title' : 'I don\'t like !',
-							'data-original-title' : 'I don\'t like !'
-						}).css({
-							'transform' : 'scale(1)',
-							'z-index' : '6666'
-						});
-					}
-
-					$('#likeBtn').tooltip('hide').attr({
-						'title' : 'Already choose !',
-						'data-original-title' : 'Already choose !'
-					});
-
-					var voteCount = Math.floor($('#likeBtn .voteCount').text());
-					$('#likeBtn .voteCount').text(voteCount+1);
-				} 
-				else {
-					alert('A server error occured at the time of your vote !');
-				}
-			},
-
-			error : function () {
-				alert('A script error occured at the time of your vote !');
-			}
-		});
+		likeOrDislike(id_song, vote);
 
 	});	
 
@@ -91,44 +36,7 @@ $(function () {
 
 		var vote = 'dislike';
 
-		$.ajax({
-			type : 'POST',
-			url : 'like-dislike.php',
-			data : 'id_song=' + id_song + '&vote=' + vote,
-
-			success : function (result) {
-				if (result.includes('vote_success')) {
-					$('#dislikeBtn').css({
-						'transform' : 'scale(1.2)'
-					}).attr('disabled', '');
-
-					if ($('#likeBtn').prop('disabled') == true) {
-						$('#likeBtn').removeAttr('disabled').attr({
-							'title' : 'I like !',
-							'data-original-title' : 'I like !'
-						}).css({
-							'transform' : 'scale(1)',
-							'z-index' : '6666'
-						});
-					}
-
-					$('#dislikeBtn').tooltip('hide').attr({
-						'title' : 'Already choose !',
-						'data-original-title' : 'Already choose !'
-					});
-
-					var voteCount = Math.floor($('#dislikeBtn .voteCount').text());
-					$('#dislikeBtn .voteCount').text(voteCount+1);
-				} 
-				else {
-					alert('A server error occured at the time of your vote !');
-				}
-			},
-
-			error : function () {
-				alert('A script error occured at the time of your vote !');
-			}
-		});
+		likeOrDislike(id_song, vote);
 
 	});
 
@@ -164,7 +72,7 @@ $(function () {
 
 					$.ajax({
 						type : 'POST',
-						url : 'php_codes/post.php',
+						url : 'php_codes/messagePost.php',
 						data : 'name_msg=' + name_msg + '&email_msg=' + email_msg + '&message_msg=' + message_msg,
 						
 						success : function(valReturn) {

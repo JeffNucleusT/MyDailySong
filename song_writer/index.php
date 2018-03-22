@@ -1,4 +1,8 @@
-<?php include '../php_codes/config.php'; ?>
+<?php 
+	include_once '../php_codes/class.database.php';
+	include_once '../php_codes/class.mdsongwriter.php';
+	include_once 'php_codes/config.php';
+?>
 
 <!DOCTYPE html>
 <html>

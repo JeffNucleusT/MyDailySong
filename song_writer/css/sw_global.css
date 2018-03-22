@@ -99,9 +99,9 @@
 	text-decoration: none;
 	width: 80%;
 	height: 80%;
-	background: #ff4500;
+	background: #551a8b;
 	color: #fff;
-	box-shadow: 0 5px 10px #ff4500;
+	box-shadow: 0 5px 10px #551a8b;
 	border-radius: 5px;
 	font-size: 2rem;
 	padding: 30px;
@@ -124,9 +124,9 @@
 /* songs.php */
 
 .navbar.navbar-light, .available-songs {
-	background: #ff4500;
+	background: #551a8b;
 	color: #fff;
-	box-shadow: 0 3px 10px #ff4500;
+	box-shadow: 0 3px 10px #551a8b;
 	margin-top: 10px;
 	border-radius: 5px 5px 0 0;
 }

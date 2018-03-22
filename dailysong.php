@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>This <?php echo date('l'); ?>'s song - My Daily Song</title>
+	<title><?php echo (isset($_GET["rl_dt"])) ? "The " . $DefaultSong->formatDate($_GET["rl_dt"]) . "'s song" : "This " . date('l') . "'s song"; ?> - My Daily Song</title>
 
 	<!-- Metadonnées -->
 	<meta charset="utf-8">
@@ -38,7 +38,9 @@
 	<script src="assets/js/plugins/scrollreveal.js"></script>
 	<script src="assets/js/plugins/parallax.js"></script>
 	<script src="assets/js/plugins/jquery.nicescroll.js"></script>
+	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/global.js"></script>
+	<script src="assets/js/songs.js"></script>
 	<script src="assets/js/social.js"></script>
 </head>
 <body>
@@ -96,7 +98,7 @@
 		</header>
 
 		<?php 
-			$actual_date = date("d/m/Y", time());
+			$actual_date = (isset($_GET["rl_dt"])) ? $_GET["rl_dt"] : date("Y-m-d", time());
 			
 			$stmt1 = $DefaultSong->readSong($actual_date);
 
@@ -108,6 +110,7 @@
 					extract($field1);
 					$TodaySong = new Song($db, $field1['id_song'], $field1['name_song'], $field1['title'], $field1['author'], $field1['lyrics'], $field1['meditation'], $field1['release_date'], $field1['likes'], $field1['dislikes'], $field1['share_facebook'], $field1['share_twitter'], $field1['share_google'], $field1['updates']);
 					$id_song = $TodaySong->getId_song();
+					$release_date = $TodaySong->getRelease_date();
 		?>
 
 		<input type="hidden" id="id_song" value="<?php echo $id_song; ?>">
@@ -167,7 +170,18 @@
 						</div>
 					</div>
 					<div class="today-song-date">
-						Today | <time datetime="<?php echo date('Y-m-d'); ?>" pubdate="<?php echo date('Y-m-d'); ?>"><?php echo date('l\, d').'<sup>'.date('S').'</sup>'.date(' F Y'); ?> </time>
+						<?php
+							if (isset($_GET['rl_dt'])) {
+								echo "
+									That day | <time datetime=" . $release_date . " pubdate=" . $release_date . ">". $DefaultSong->formatDate($release_date) . "</time>
+								";
+							} else {
+								echo "
+									Today | <time datetime=" . $release_date . " pubdate=" . $release_date . ">". date('l\, d') . "<sup>" . date('S') . "</sup>" . date(' F Y') . "</time>
+								";
+							}
+							
+						?>
 					</div>
 				</article>
 				<article class="col-12 col-md-6 today-lyric-medit">

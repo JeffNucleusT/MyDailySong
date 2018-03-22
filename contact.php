@@ -38,7 +38,9 @@
 	<script src="assets/js/plugins/scrollreveal.js"></script>
 	<script src="assets/js/plugins/parallax.js"></script>
 	<script src="assets/js/plugins/jquery.nicescroll.js"></script>
+	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/global.js"></script>
+	<script src="assets/js/songs.js"></script>
 </head>
 <body>
 
@@ -116,7 +118,7 @@
 			<div class="row justify-content-center">
 				<div class="col-12 col-md-8">
 					<h1 class="display-1 text-center">Leave a Message</h1>
-					<form class="contact-form" method="POST" action="php_codes/save_message.php">
+					<form class="contact-form" method="POST" action="">
 						<div class="contact-form-group">
 							<input type="text" name="name_msg" placeholder="NAME" class="contact-form-input" id="name_msg">
 						</div>

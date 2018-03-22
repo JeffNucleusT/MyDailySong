@@ -1,17 +1,15 @@
 <?php
 
 	/**
-	* Server and database connection
+	* Comments about songs, attribs and methods
 	*/
 	class Comment
 	{
-		// Properties
-		private $_host = "localhost";
-		private $_db_name = "mydailysong_db";
-		private $_username = "jeffNucleust";
-		private $_password = "thenucleusTboy777";
+		// Database connection
 		private $_con;
+		private $_table_name = 'comments';
 
+		// Properties
 		private $_id_comment;
 		public $_name_c;
 		public $_email_c;
@@ -44,7 +42,7 @@
 
 		public function readComment($idsong)
 		{
-			$query = "SELECT * FROM comments WHERE id_song = :idsong ORDER BY timestamp_c DESC";
+			$query = "SELECT * FROM " . $this->_table_name . " WHERE id_song = :idsong ORDER BY timestamp_c DESC";
 
 			$stmt = $this->_con->prepare($query);
 			$stmt->bindParam(':idsong', $idsong);

@@ -38,7 +38,9 @@
 	<script src="assets/js/plugins/scrollreveal.js"></script>
 	<script src="assets/js/plugins/parallax.js"></script>
 	<script src="assets/js/plugins/jquery.nicescroll.js"></script>
+	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/global.js"></script>
+	<script src="assets/js/songs.js"></script>
 </head>
 <body>
 

@@ -38,7 +38,9 @@
 	<script src="assets/js/plugins/scrollreveal.js"></script>
 	<script src="assets/js/plugins/parallax.js"></script>
 	<script src="assets/js/plugins/jquery.nicescroll.js"></script>
+	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/global.js"></script>
+	<script src="assets/js/songs.js"></script>
 </head>
 <body>
 
@@ -70,14 +72,14 @@
 		<section class="search-option row justify-content-center">
 			
 			<div class="col-12 col-md-8 form-option1">
-				<form method="GET" action="searchsong.php" class="form-option1">
+				<form method="GET" action="" class="form-option1">
 					
 					<div class="row">
 						<div class="col-12 col-md-3">
-							<select name="type_search" class="custom-select" required="">
-								<option selected>Search for a/an...</option>
-								<option value="1">Song</option>
-								<option value="2">Author</option>
+							<select name="type_search1" class="custom-select type_search1" required="">
+								<option value="" selected>Search for a/an...</option>
+								<option value="song">Song</option>
+								<option value="author">Author</option>
 							</select>
 						</div>
 						<div class="col-12 col-md-8">
@@ -92,13 +94,14 @@
 
 				<hr>
 
-				<form method="GET" action="searchsong.php" class="form-option2">
+				<form method="GET" action="" class="form-option2">
 					
 					<div class="row">
 						<div class="col-12 col-md-3">
 							Search from a date...
 						</div>
 						<div class="col-12 col-md-8">
+							<input type="hidden" class="type_search2" value="date">
 							<input type="date" name="search2" class="form-control search2" required="" max="<?php echo date('Y-m-d'); ?>">
 						</div>
 						<div class="col-12 col-md-1">
@@ -107,9 +110,12 @@
 					</div>
 
 				</form>
+
 			</div>			
 
-		</section>
+		</section><hr>
+
+		<section class="result-songs"></section>
 
 		<?php include_once 'footer.php'; ?>
 

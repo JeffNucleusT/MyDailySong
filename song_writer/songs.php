@@ -1,5 +1,10 @@
 <?php 
-	include 'php_codes/config.php'; 
+	include_once '../php_codes/class.database.php';
+	include_once '../php_codes/class.mdsongwriter.php';
+	include_once '../php_codes/class.song.php';
+	include_once 'php_codes/config.php';
+
+	$OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
 	
 	if (isset($_SESSION['login'])) {
 
@@ -60,33 +65,7 @@
 
 				<?php
 
-					$request = $db->prepare("SELECT * FROM songs ORDER BY release_date DESC");
-					$request->execute();
-
-					while ($row = $request->fetch()) {
-
-				?>
-
-				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1"><?php echo $row['title']; ?></h5>
-						<small>by <?php echo $row['author']; ?></small>
-					</div>
-					<p class="mb-1">
-						<span class="badge badge-success badge-pill"><?php echo $row['likes']; ?> likes</span>
-						<span class="badge badge-danger badge-pill"><?php echo $row['dislikes']; ?> dislikes</span>
-					</p>
-					<div class="d-flex w-100 justify-content-between">
-						<small>Release date : <?php echo $row['release_date']; ?></small>
-						<small>
-							<?php echo (strlen($row['meditation']) != 0) ? "<i class='icon-info-circled-1'></i>with Meditations" : "" ?>
-						</small>
-					</div>
-				</a>
-
-				<?php
-			
-					}
+					$OneMDSwriter->writerListSong();
 
 				?>
 

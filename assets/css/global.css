@@ -36,7 +36,7 @@ a:focus {
 	font-family: 'Century Gothic';
 }
 
-h1.display-1 {
+h1.display-1, h1.display-1 * {
 	font-family: 'JeboyFree';
 }
 
@@ -676,8 +676,8 @@ h1.display-1 {
 }
 
 .search-option {
-	min-height: 400px;
 	color: #fff;
+	margin-bottom: 50px;
 }
 
 .search-option .form-option1 .col-12 select {
@@ -687,8 +687,6 @@ h1.display-1 {
 .search-option form button[type="submit"] {
 	cursor: pointer;
 }
-
-/*Results page*/
 
 .title-search .row {
 	margin-top: 60px;
@@ -701,6 +699,19 @@ h1.display-1 {
 
 .title-search .row .card {
 	color: #292b2c;
+}
+
+.result-songs {
+	color: #fff;
+	text-align: center;
+}
+
+.result-songs .card {
+	color: #292b2c;
+}
+
+.result-songs .col-12:last-child {
+	margin-bottom: 50px;
 }
 
 /* Pied de page */
