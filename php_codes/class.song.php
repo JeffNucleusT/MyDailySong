@@ -64,7 +64,7 @@
 		}
 
 		// Create a new song
-		private function createSong($name_song, $title, $author, $lyrics, $meditation, $release_date)
+		public function createSong($name_song, $title, $author, $lyrics, $meditation, $release_date)
 		{
 			$name_song = htmlspecialchars(strip_tags($name_song));
 			$title = htmlspecialchars(strip_tags($title));
@@ -72,23 +72,6 @@
 			$lyrics = htmlspecialchars(strip_tags($lyrics));
 			$meditation = htmlspecialchars(strip_tags($meditation));
 			$release_date = htmlspecialchars(strip_tags($release_date));
-
-			if ($name_song['error'] > 0) { return "get_file_error"; }
-
-			else {
-				$ext = substr(strrchr($name_song['name'], '.'), 1);
-				if (!in_array($ext, array('mp3','wav'))) { return "get_extension_error";}
-
-				else {
-
-					//Déplacement
-					$name_song = str_replace(" ", "", strtoupper($author))."-".str_replace("/", "", $release_date);
-					$this->_nom_chemin = "../../media/{$name_song}";
-					move_uploaded_file($name_song['tmp_name'], $this->_nom_chemin);
-				
-				}
-
-			}
 
 			try {
 				
@@ -100,7 +83,7 @@
 				if ($stmt1->rowCount() == 0) {
 					
 					$query2 = "SELECT release_date FROM " . $this->_table_name . " WHERE release_date LIKE :release_date";
-					$stmt2 = $this->_con->prepare($query1);
+					$stmt2 = $this->_con->prepare($query2);
 					$stmt2->bindParam(':release_date', $release_date);
 					$stmt2->execute();
 
@@ -124,7 +107,7 @@
 
 								return 'Save_Success';
 
-							} catch (PDOException $e) {
+							} catch (Exception $e) {
 								return 'Statement Error : ' . $e;
 							}
 
@@ -140,7 +123,7 @@
 					return 'Title_Exist';
 				}
 
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				return 'Statement Error : ' . $e;
 			}
 
