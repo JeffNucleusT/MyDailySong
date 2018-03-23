@@ -130,12 +130,23 @@
 				$infos_mdt = (strlen($row['meditation']) != 0) ? "<i class='icon-info-circled-1'></i>with Meditations" : "";
 
 				echo "
-					<a href='#' class='list-group-item list-group-item-action flex-column align-items-start'>
+					<div class='list-group-item list-group-item-action flex-column align-items-start'>
 						<div class='d-flex w-100 justify-content-between'>
-							<h5 class='mb-1'>" . $row['title'] . "</h5>
-							<small>by " . $row['author'] . "</small>
+							<h5 class='mb-1'>" . $row['title'] . " <small>by " . $row['author'] . "</small></h5>
+							<div class='dropdown show'>
+								<a class='btn btn-secondary btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+									<i class='icon-cog-alt'></i>
+								</a>
+
+								<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>
+									<a class='dropdown-item' href='#'>View</a>
+									<a class='dropdown-item' href='#'>Update</a>
+									<a class='dropdown-item' href='#'>Delete</a>
+								</div>
+							</div>
+							
 						</div>
-						<p class='mb-1'>
+						<p class='mb-1'> 
 							<span class='badge badge-success badge-pill'><i class='icon-thumbs-up-1'></i>" . $row['likes'] . "</span>
 							<span class='badge badge-danger badge-pill'><i class='icon-thumbs-down-1'></i>" . $row['dislikes'] . "</span> |
 							<span class='badge badge-primary badge-pill'><i class='icon-facebook'></i> " . $row['share_facebook'] . "</span>
@@ -146,7 +157,7 @@
 							<small>Release date : " . $aSong->formatDate($row['release_date']) . "</small>
 							<small>" . $infos_mdt . "</small>
 						</div>
-					</a>
+					</div>
 				";
 
 			}
