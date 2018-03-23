@@ -165,6 +165,15 @@
 	text-align: center;
 }
 
+.available-songs .list-group .modal-header {
+	background: #551a8b;
+	color: #fff;
+}
+
+.available-songs .list-group .modal-header .close {
+	color: #fff;
+}
+
 /* new_song.php */
 
 .new-song-form {

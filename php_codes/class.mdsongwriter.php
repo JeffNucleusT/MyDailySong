@@ -139,12 +139,30 @@
 								</a>
 
 								<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>
-									<a class='dropdown-item' href='#'>View</a>
+									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal'>View</a>
 									<a class='dropdown-item' href='#'>Update</a>
 									<a class='dropdown-item' href='#'>Delete</a>
 								</div>
 							</div>
 							
+							<!-- Modal -->
+							<div class='modal fade' id='viewSongModal' tabindex='-1' role='dialog' aria-labelledby='viewSongModalTitle' aria-hidden='true'>
+								<div class='modal-dialog' role='document'>
+									<div class='modal-content'>
+										<div class='modal-header'>
+											
+											<h5 class='modal-title' id='viewSongModalTitle'>Modal title</h5>
+											<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+											<span aria-hidden='true'>&times;</span>
+											</button>
+										</div>
+										<div class='modal-body'>
+											...
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 						<p class='mb-1'> 
 							<span class='badge badge-success badge-pill'><i class='icon-thumbs-up-1'></i>" . $row['likes'] . "</span>
