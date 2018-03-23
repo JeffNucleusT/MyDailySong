@@ -165,13 +165,35 @@
 	text-align: center;
 }
 
-.available-songs .list-group .modal-header {
+.available-songs .list-group .modal-header,
+.available-songs .list-group .modal-footer {
 	background: #551a8b;
 	color: #fff;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.available-songs .list-group .modal-header > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.available-songs .list-group .modal-header hr {
+	width: 100%;
 }
 
 .available-songs .list-group .modal-header .close {
 	color: #fff;
+}
+
+.available-songs .list-group .modal-body {
+	text-align: center;
+}
+
+.available-songs .list-group .modal-footer {
+	justify-content: center;
 }
 
 /* new_song.php */

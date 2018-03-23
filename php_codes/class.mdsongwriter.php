@@ -131,50 +131,68 @@
 
 				echo "
 					<div class='list-group-item list-group-item-action flex-column align-items-start'>
+						
 						<div class='d-flex w-100 justify-content-between'>
+							
 							<h5 class='mb-1'>" . $row['title'] . " <small>by " . $row['author'] . "</small></h5>
+							
 							<div class='dropdown show'>
 								<a class='btn btn-secondary btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
 									<i class='icon-cog-alt'></i>
 								</a>
 
 								<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>
-									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal'>View</a>
+									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal" . $row['id_song'] . "'>View</a>
 									<a class='dropdown-item' href='#'>Update</a>
 									<a class='dropdown-item' href='#'>Delete</a>
 								</div>
 							</div>
 							
 							<!-- Modal -->
-							<div class='modal fade' id='viewSongModal' tabindex='-1' role='dialog' aria-labelledby='viewSongModalTitle' aria-hidden='true'>
-								<div class='modal-dialog' role='document'>
+							<div class='modal fade' id='viewSongModal" . $row['id_song'] . "' tabindex='-1' role='dialog' aria-labelledby='viewSongModalTitle" . $row['id_song'] . "' aria-hidden='true'>
+								
+								<div class='modal-dialog modal-lg' role='document'>
+									
 									<div class='modal-content'>
+										
 										<div class='modal-header'>
-											
-											<h5 class='modal-title' id='viewSongModalTitle'>Modal title</h5>
+											<div class='w-100'>
+												<input type='hidden' id='share-today-title" . $row['id_song'] . "' value='" . $row['title'] . " by " . $row['author'] . " with Lyrics and Meditation.'>
+												<audio controls='controls' class='w-100'>
+													Votre navigateur ne supporte pas l'élément <code>audio</code>. Veuillez le mettre à jour.
+													<source src='../media/" . $row['name_song'] . "' type='audio/mp3'>
+												</audio><hr>
+												<h5 class='modal-title' id='viewSongModalTitle'><b>" . $row['title'] . "</b> <small>by</small> " . $row['author'] . "</h5>
+												<span>Release on the " . $aSong->formatDate($row['release_date']) . ".</span>
+												<p class='mb-1'> 
+													<span class='badge badge-success badge-pill'><i class='icon-thumbs-up-1'></i>" . $row['likes'] . "</span>
+													<span class='badge badge-danger badge-pill'><i class='icon-thumbs-down-1'></i>" . $row['dislikes'] . "</span> |
+													<span class='badge badge-primary badge-pill'><i class='icon-facebook'></i> " . $row['share_facebook'] . "</span>
+													<span class='badge badge-info badge-pill'><i class='icon-twitter'></i> " . $row['share_twitter'] . "</span>
+													<span class='badge badge-danger badge-pill'><i class='icon-google'></i> " . $row['share_google'] . "</span>
+												</p>
+											</div>
 											<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-											<span aria-hidden='true'>&times;</span>
+												<span aria-hidden='true'>&times;</span>
 											</button>
 										</div>
+
 										<div class='modal-body'>
-											...
+											<h3 class='display-4'>" . $row['lyrics'] . "</h3>
 										</div>
+
+										<div class='modal-footer'>
+											<h3 class='display-4'>05 comments</h3>
+										</div>
+
 									</div>
+
 								</div>
+
 							</div>
 
 						</div>
-						<p class='mb-1'> 
-							<span class='badge badge-success badge-pill'><i class='icon-thumbs-up-1'></i>" . $row['likes'] . "</span>
-							<span class='badge badge-danger badge-pill'><i class='icon-thumbs-down-1'></i>" . $row['dislikes'] . "</span> |
-							<span class='badge badge-primary badge-pill'><i class='icon-facebook'></i> " . $row['share_facebook'] . "</span>
-							<span class='badge badge-info badge-pill'><i class='icon-twitter'></i> " . $row['share_twitter'] . "</span>
-							<span class='badge badge-danger badge-pill'><i class='icon-google'></i> " . $row['share_google'] . "</span>
-						</p>
-						<div class='d-flex w-100 justify-content-between'>
-							<small>Release date : " . $aSong->formatDate($row['release_date']) . "</small>
-							<small>" . $infos_mdt . "</small>
-						</div>
+
 					</div>
 				";
 
