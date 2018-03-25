@@ -5,5 +5,6 @@
 
 	$DefaultSong = new Song($db, '', '', '', '', '', '', '', '', '', '', '', '', '');
 	$DefaultComment = new Comment($db, '', '', '', '', '', '', '');
+	$DefaultMessage = new Message('', '', '', '');
 
 ?>

@@ -51,7 +51,7 @@ $(function () {
 			email_msg = $("#email_msg").val(),
 			message_msg = $("#message_msg").val(),
 			beforeBtn = $(this).html(),
-			afterBtn = "<i class='icon-spin4 animate-spin'></i> SAVING...";
+			afterBtn = "<i class='icon-spin4 animate-spin'></i> SENDING...";
 
 		if (name_msg != "") {
 			$("#name_msg").removeClass("form-danger").addClass("form-success");
@@ -63,6 +63,7 @@ $(function () {
 
 					$("#message_msg").removeClass("form-danger").addClass("form-success");
 					$(this).html(afterBtn);
+					$(".contact-form #postResult").show();
 
 					$.ajax({
 						type : 'POST',
@@ -72,19 +73,19 @@ $(function () {
 						success : function(valReturn) {
 							$("#sendMessage").html(beforeBtn);
 
-							if (valReturn == "bad") {
-								$(".contact-form #postResult").empty().html('<div class="alert alert-danger alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Oh snap!</strong><br> An server error occured at the time of your message sending! Try again or later! </div>').fadeIn();
-							}
-
-							else if (valReturn == "good") {
+							if (valReturn.includes("new_msg_success")) {
 								$(".contact-form #postResult").empty().html('<div class="alert alert-success alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Well done!</strong><br> Your message has been successfully send! We will reply once! </div>').fadeIn();
 								setTimeout(function () {
 									location.href = location.href;
 								}, 5000);
 							}
 
-							else if (valReturn == "empty_fields") {
+							else if (valReturn.includes("Missing Informations")) {
 								$(".contact-form #postResult").empty().html('<div class="alert alert-warning alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong><br> Fill in all the fields! </div>').fadeIn();
+							}
+
+							else {
+								$(".contact-form #postResult").empty().html('<div class="alert alert-danger alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Oh snap!</strong><br> An server error occured at the time of your message sending! Try again or later! </div>').fadeIn();
 							}
 
 						},

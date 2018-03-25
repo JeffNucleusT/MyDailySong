@@ -2,6 +2,7 @@
 	include_once 'class.database.php';
 	include_once 'class.song.php';
 	include_once 'class.comment.php';
+	include_once 'class.message.php';
 	include_once 'config.php';
 ?>
 

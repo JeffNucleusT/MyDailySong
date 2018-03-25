@@ -2,6 +2,7 @@
 	include_once 'php_codes/class.database.php';
 	include_once 'php_codes/class.song.php';
 	include_once 'php_codes/class.comment.php';
+	include_once 'php_codes/class.message.php';
 	include_once 'php_codes/config.php';
 ?>
 
@@ -108,7 +109,6 @@
 				<div class="col-12 col-md-6 contact-online-web">
 					<p><i class="icon-location"></i> Down Street, Bamenda, Cameroon</p>
 					<p><i class="icon-phone"></i> +237 672 129 023</p>
-					<p><a href="mailto:mydailsong@gmail.com"><i class="icon-mail"></i> mydailsong</a></p>
 					<p><a href="http://www.mydailsong.net/" target="_blank"><i class="icon-network"></i> mydailysong.net/</a></p>
 				</div>
 			</div>
