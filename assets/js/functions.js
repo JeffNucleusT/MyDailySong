@@ -84,6 +84,12 @@ function likeOrDislike(id_song, vote) {
 
 }
 
+// Is it an email form ?
+function IsEmail(email) {
+	var regex1 = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	return regex1.test(email);
+}
+
 // Searching for songs by name, authors, release dates
 function songSearch(type_search, search, $objet1, $objet2) {
 	

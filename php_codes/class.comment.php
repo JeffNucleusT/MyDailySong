@@ -42,12 +42,27 @@
 
 		public function createComment($name_c, $email_c, $comment_c, $timestamp_c, $response_c, $id_song)
 		{
-			$query = "SELECT * FROM " . $this->_table_name . " WHERE id_song = :idsong ORDER BY timestamp_c DESC";
+			$name_c = htmlspecialchars(strip_tags($name_c));
+			$email_c = htmlspecialchars(strip_tags($email_c));
+			$comment_c = nl2br(htmlspecialchars(strip_tags($comment_c)));
+			$timestamp_c = htmlspecialchars(strip_tags($timestamp_c));
+			$response_c = htmlspecialchars(strip_tags($response_c));
+			$id_song = htmlspecialchars(strip_tags($id_song));
+
+			$query = "INSERT INTO " . $this->_table_name . " (name_c, email_c, comment_c, timestamp_c, response_c, id_song) VALUES (:name_c, :email_c, :comment_c, :timestamp_c, :response_c, :id_song)";
+			
 			try {
 				
 				$stmt = $this->_con->prepare($query);
-				$stmt->bindParam(':idsong', $idsong);
+				$stmt->bindParam(':name_c', $name_c);
+				$stmt->bindParam(':email_c', $email_c);
+				$stmt->bindParam(':comment_c', $comment_c);
+				$stmt->bindParam(':timestamp_c', $timestamp_c);
+				$stmt->bindParam(':response_c', $response_c);
+				$stmt->bindParam(':id_song', $id_song);
 				$stmt->execute();
+
+				return "new_comment_success";
 
 			} catch (PDOException $e) {
 				return 'Statement Error : ' . $e;

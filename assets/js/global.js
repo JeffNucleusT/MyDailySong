@@ -40,23 +40,17 @@ $(function () {
 
 	});
 
-	// Control and Save a comment
-
-	function IsEmail(email) {
-        var regex1 = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex1.test(email);
-    }
-
+	// Control and Send a message
     $(".contact-form #postResult").hide();
 
 	$("#sendMessage").click(function(e) {
 
 		e.preventDefault();
 
-		var name_msg = $("#name_msg").val();
-			email_msg = $("#email_msg").val();
-			message_msg = $("#message_msg").val();
-			beforeBtn = $(this).html();
+		var name_msg = $("#name_msg").val(),
+			email_msg = $("#email_msg").val(),
+			message_msg = $("#message_msg").val(),
+			beforeBtn = $(this).html(),
 			afterBtn = "<i class='icon-spin4 animate-spin'></i> SAVING...";
 
 		if (name_msg != "") {

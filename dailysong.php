@@ -41,6 +41,7 @@
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/global.js"></script>
 	<script src="assets/js/songs.js"></script>
+	<script src="assets/js/comment.js"></script>
 	<script src="assets/js/social.js"></script>
 </head>
 <body>
@@ -250,22 +251,23 @@
 					?>
 
 				</div>
-				<div class="col-12 col-md-8">
+				<div class="col-12 col-md-8" id="today-leave-comment">
 					<h1 class="display-1 text-center">Leave a Coment</h1>
-					<form class="comment-form" method="POST" action="php_codes/save_message.php" id="mainForm">
+					<form class="comment-form" method="POST" action="php_codes/commentCreate.php" id="mainForm">
+						<input type="hidden" value="None" id="responce_c">
 						<div class="comment-form-group">
-							<input type="text" name="name_msg" placeholder="NAME" class="comment-form-input" id="name_msg">
+							<input type="text" name="name_c" placeholder="NAME" class="comment-form-input" id="name_c">
 						</div>
 						<div class="comment-form-group">
-							<input type="email" name="email_msg" placeholder="EMAIL" class="comment-form-input" id="email_msg">
+							<input type="email" name="email_c" placeholder="EMAIL" class="comment-form-input" id="email_c">
 						</div>
 						<div class="comment-form-group">
-							<textarea name="message_msg" id="message_msg" class="comment-form-input" placeholder="MESSAGE"></textarea>
+							<textarea name="comment_c" id="comment_c" class="comment-form-input" placeholder="COMMENT"></textarea>
 						</div>
 						<div class="comment-form-group-btn">
-							<button type="submit" name="sendMessage" id="sendMessage" class="comment-form-btn">SEND</button>
+							<button type="submit" name="sendComment" id="sendComment" class="comment-form-btn">SEND</button>
 						</div>
-						<output id="postResult"></output>
+						<output class="mt-4 w-100" id="postResult"></output>
 					</form>
 
 				</div>
