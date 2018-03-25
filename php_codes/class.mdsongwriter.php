@@ -116,16 +116,22 @@
 		}
 
 
-		public function writerListSong()
+		public function writerListSong($ord_rl)
 		{
 			$aSong = new Song($this->_con, '', '', '', '', '', '', '', '', '', '', '', '', '');
 
-			$query = "SELECT * FROM songs ORDER BY release_date DESC";
+			$signe = ($ord_rl == "rl") ? "<=" : ">";
+			$actual_date = date("Y-m-d");
+
+			$query = "SELECT * FROM songs WHERE release_date " . $signe . " :actual_date ORDER BY release_date DESC";
 			
 			$stmt = $this->_con->prepare($query);
+			$stmt->bindParam(":actual_date", $actual_date);
 			$stmt->execute();
-
+			
 			while ($row = $stmt->fetch()) {
+				
+				$dis = ($signe == '<=') ? " disabled' href='#' title='This option is disabled because this song has been released.'" : "' href='update_song.php?idsg=" . $row['id_song'] . "'";
 
 				$infos_mdt = (strlen($row['meditation']) != 0) ? "<i class='icon-info-circled-1'></i>with Meditations" : "";
 
@@ -136,19 +142,19 @@
 							
 							<h5 class='mb-1'>" . $row['title'] . " <small>by " . $row['author'] . "</small></h5>
 							
-							<div class='dropdown show'>
+							<div class='dropdown ml-4'>
 								<a class='btn btn-secondary btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
 									<i class='icon-cog-alt'></i>
 								</a>
 
 								<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>
-									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal" . $row['id_song'] . "'>View</a>
-									<a class='dropdown-item' href='#'>Update</a>
-									<a class='dropdown-item' href='#'>Delete</a>
+									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal" . $row['id_song'] . "'><i class='icon-eye'></i> View</a>
+									<a class='dropdown-item" . $dis . "><i class='icon-pencil'></i> Update</a>
+									<a class='dropdown-item' href='#' data-toggle='modal' data-backdrop='static' data-target='#deleteSongModal" . $row['id_song'] . "'><i class='icon-trash'></i> Delete</a>
 								</div>
 							</div>
 							
-							<!-- Modal -->
+							<!-- View Modal -->
 							<div class='modal fade' id='viewSongModal" . $row['id_song'] . "' tabindex='-1' role='dialog' aria-labelledby='viewSongModalTitle" . $row['id_song'] . "' aria-hidden='true'>
 								
 								<div class='modal-dialog modal-lg' role='document'>
@@ -178,11 +184,35 @@
 										</div>
 
 										<div class='modal-body'>
-											<h3 class='display-4'>" . $row['lyrics'] . "</h3>
+											<div class='lyrics'><h2 class='mb-4 mt-4'>LYRICS</h2>" . $row['lyrics'] . "</div>
+											<div class='meditations'><h2 class='mb-4 mt-4'>MEDITATION</h2>" . $row['meditation'] . "</div>
 										</div>
 
 										<div class='modal-footer'>
 											<h3 class='display-4'>05 comments</h3>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							
+							<!-- Delete Modal -->
+							<div class='modal' id='deleteSongModal" . $row['id_song'] . "' tabindex='-1' role='dialog' aria-labelledby='deleteSongModalTitle" . $row['id_song'] . "' aria-hidden='true'>
+								
+								<div class='modal-dialog modal-dialog-centered' role='document'>
+									
+									<div class='modal-content'>
+										
+										<div class='modal-body'>
+											Do you want to delete the song&nbsp;<b>" . $row['title'] . "</b>&nbsp;?
+										</div>
+
+										<div class='modal-footer'>
+											<input type='hidden' class='del_idSong' value='" . $row['id_song'] . "'>
+											<button type='button' class='btn btn-secondary' data-dismiss='modal'>NO</button>
+											<button type='button' class='btn btn-primary del_btnSong' id='del_btnSong" . $row['id_song'] . "'>YES</button>
 										</div>
 
 									</div>
@@ -197,6 +227,21 @@
 				";
 
 			}
+
+		}
+
+		public function nbSong($ord_rl)
+		{
+			$signe = ($ord_rl == "rl") ? "<=" : ">";
+			$actual_date = date("Y-m-d");
+
+			$query = "SELECT * FROM songs WHERE release_date " . $signe . " :actual_date";
+			
+			$stmt = $this->_con->prepare($query);
+			$stmt->bindParam(":actual_date", $actual_date);
+			$stmt->execute();
+
+			return $stmt->rowCount();
 
 		}
 

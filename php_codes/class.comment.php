@@ -40,13 +40,34 @@
 			return $this->_id_song;
 		}
 
+		public function createComment($name_c, $email_c, $comment_c, $timestamp_c, $response_c, $id_song)
+		{
+			$query = "SELECT * FROM " . $this->_table_name . " WHERE id_song = :idsong ORDER BY timestamp_c DESC";
+			try {
+				
+				$stmt = $this->_con->prepare($query);
+				$stmt->bindParam(':idsong', $idsong);
+				$stmt->execute();
+
+			} catch (PDOException $e) {
+				return 'Statement Error : ' . $e;
+			}
+
+			return $stmt;
+		}
+
 		public function readComment($idsong)
 		{
 			$query = "SELECT * FROM " . $this->_table_name . " WHERE id_song = :idsong ORDER BY timestamp_c DESC";
+			try {
+				
+				$stmt = $this->_con->prepare($query);
+				$stmt->bindParam(':idsong', $idsong);
+				$stmt->execute();
 
-			$stmt = $this->_con->prepare($query);
-			$stmt->bindParam(':idsong', $idsong);
-			$stmt->execute();
+			} catch (PDOException $e) {
+				return 'Statement Error : ' . $e;
+			}
 
 			return $stmt;
 		}

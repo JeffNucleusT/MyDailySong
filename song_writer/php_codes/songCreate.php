@@ -11,7 +11,7 @@
 	
 	if (isset($_SESSION['login'])) {
 
-		// if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['lyrics']) && isset($_POST['release_date']) && isset($_FILES['name_song']['name'])) {
+		if (isset($_POST['title']) && isset($_POST['author']) && isset($_POST['lyrics']) && isset($_POST['release_date']) && isset($_FILES['name_song']['name'])) {
 
 			$OneUpload = new upload('../../media/', 'name_song');
 
@@ -27,10 +27,10 @@
 		
 			echo $DefaultSong->createSong($name_song, $_POST['title'], $_POST['author'], $_POST['lyrics'], $_POST['meditation'], $_POST['release_date']);
 
-		// }
-		// else {
-			// echo 'Informations manquantes.';
-		// }
+		}
+		else {
+			echo 'Missing informations.';
+		}
 
 	} else {
 		header("location:deconnect.php");

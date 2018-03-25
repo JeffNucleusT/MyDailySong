@@ -69,8 +69,8 @@
 			$name_song = htmlspecialchars(strip_tags($name_song));
 			$title = htmlspecialchars(strip_tags($title));
 			$author = htmlspecialchars(strip_tags($author));
-			$lyrics = htmlspecialchars(strip_tags($lyrics));
-			$meditation = htmlspecialchars(strip_tags($meditation));
+			$lyrics = nl2br(htmlspecialchars(strip_tags($lyrics)));
+			$meditation = nl2br(htmlspecialchars(strip_tags($meditation)));
 			$release_date = htmlspecialchars(strip_tags($release_date));
 
 			try {
@@ -91,25 +91,19 @@
 					
 						if ($release_date >= date("Y-m-d")) {
 							
-							try {
+							$query3 = "INSERT INTO " . $this->_table_name . "(name_song, title, author, lyrics, meditation, release_date) VALUES(:name_song, :title, :author, :lyrics, :meditation, :release_date)";
+							$stmt3 = $this->_con->prepare($query3);
 
-								$query3 = "INSERT INTO " . $this->_table_name . "(name_song, title, author, lyrics, meditation, release_date) VALUES(:name_song, :title, :author, :lyrics, :meditation, :release_date)";
-								$stmt3 = $this->_con->prepare($query3);
+							$stmt3->bindParam(':name_song', $name_song);
+							$stmt3->bindParam(':title', $title);
+							$stmt3->bindParam(':author', $author);
+							$stmt3->bindParam(':lyrics', $lyrics);
+							$stmt3->bindParam(':meditation', $meditation);
+							$stmt3->bindParam(':release_date', $release_date);
 
-								$stmt3->bindParam(':name_song', $name_song);
-								$stmt3->bindParam(':title', $title);
-								$stmt3->bindParam(':author', $author);
-								$stmt3->bindParam(':lyrics', $lyrics);
-								$stmt3->bindParam(':meditation', $meditation);
-								$stmt3->bindParam(':release_date', $release_date);
+							$stmt3->execute();
 
-								$stmt3->execute();
-
-								return 'Save_Success';
-
-							} catch (Exception $e) {
-								return 'Statement Error : ' . $e;
-							}
+							return 'Save_Success';
 
 						} else {
 							return 'Date_Passed';
@@ -130,27 +124,119 @@
 		}
 
 		// Read the infos of a song
-		public function readSong($thatDate)
+		public function readSong($column, $value)
 		{
-			$thatDate = htmlspecialchars(strip_tags($thatDate));
-
-			$query = "SELECT * FROM " . $this->_table_name . " WHERE release_date = :thatDate";
+			$column = htmlspecialchars(strip_tags($column));
+			$value = htmlspecialchars(strip_tags($value));
 			
-			$stmt = $this->_con->prepare($query);
-			$stmt->bindParam(':thatDate', $thatDate);
-			$stmt->execute();
+			$query = "SELECT * FROM " . $this->_table_name . " WHERE " . $column . " = :value";
+			
+			try {
+			
+				$stmt = $this->_con->prepare($query);
+				$stmt->bindParam(':value', $value);
+				$stmt->execute();
+
+			} catch (PDOException $e) {
+				return 'Statement Error : ' . $e;
+			}
 
 			return $stmt;
 		}
 
-		private function updateSong($idSong)
+		public function updateSong($idSong, $title, $author, $lyrics, $meditation, $release_date)
 		{
+			$idSong = htmlspecialchars(strip_tags($idSong));
+			$title = htmlspecialchars(strip_tags($title));
+			$author = htmlspecialchars(strip_tags($author));
+			$lyrics = nl2br(htmlspecialchars(strip_tags($lyrics)));
+			$meditation = nl2br(htmlspecialchars(strip_tags($meditation)));
+			$release_date = htmlspecialchars(strip_tags($release_date));
+
+			try {
+				
+				$query1 = "SELECT title FROM " . $this->_table_name . " WHERE title LIKE :title AND id_song != :idSong";
+				$stmt1 = $this->_con->prepare($query1);
+				$stmt1->bindParam(':title', $title);
+				$stmt1->bindParam(":idSong", $idSong);
+				$stmt1->execute();
+
+				if ($stmt1->rowCount() == 0) {
+					
+					$query2 = "SELECT release_date FROM " . $this->_table_name . " WHERE release_date LIKE :release_date AND id_song != :idSong";
+					$stmt2 = $this->_con->prepare($query2);
+					$stmt2->bindParam(':release_date', $release_date);
+					$stmt2->bindParam(":idSong", $idSong);
+					$stmt2->execute();
+
+					if ($stmt2->rowCount() == 0) {
+					
+						if ($release_date >= date("Y-m-d")) {
+
+							$query = "UPDATE " . $this->_table_name . " SET title = :title, author = :author, lyrics = :lyrics, meditation = :meditation, release_date = :release_date WHERE id_song = :idSong";
 			
+							$stmt = $this->_con->prepare($query);
+
+							$stmt->bindParam(":title", $title);
+							$stmt->bindParam(":author", $author);
+							$stmt->bindParam(":lyrics", $lyrics);
+							$stmt->bindParam(":meditation", $meditation);
+							$stmt->bindParam(":release_date", $release_date);
+							$stmt->bindParam(":idSong", $idSong);
+
+							$stmt->execute();
+
+							return "update_success";
+						
+						} else {
+							return 'Date_Passed';
+						}
+						
+					} else {
+						return 'Date_Exist';
+					}
+
+				} else {
+					return 'Title_Exist';
+				}
+
+			} catch(PDOException $e) {
+				return 'Statement Error : ' . $e;
+			}
+		
 		}
 
-		private function deleteSong($idSong)
+		public function deleteSong($idSong)
 		{
+			$idSong = htmlspecialchars(strip_tags($idSong));
 
+			try {
+				
+				$query1 = "SELECT name_song FROM " . $this->_table_name . " WHERE id_song = :idSong";
+				$stmt1 = $this->_con->prepare($query1);
+				$stmt1->bindParam(":idSong", $idSong);
+				$stmt1->execute();
+
+				$row = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+				unlink("../../media/" . $row['name_song']);
+
+				$query2 = "DELETE FROM comments WHERE id_song = :idSong";
+				$stmt2 = $this->_con->prepare($query2);
+				$stmt2->bindParam(":idSong", $idSong);
+				$stmt2->execute();
+
+				$query = "DELETE FROM " . $this->_table_name . " WHERE id_song = :idSong";
+				$stmt = $this->_con->prepare($query);
+				$stmt->bindParam(":idSong", $idSong);
+				$stmt->execute();
+
+				return "delete_success";
+
+			} catch (Exception $e) {
+				echo 'Statement Error : ' . $e;
+			}
+			
 		}
 
 		public function searchSong($type, $search)
@@ -207,7 +293,7 @@
 					';
 				}
 
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				echo 'Statement Error : ' . $e;
 			}
 		}
@@ -230,7 +316,7 @@
 
 				return 'vote_success';
 
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				return 'Statement Error : ' . $e;
 			}
 		}

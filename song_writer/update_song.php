@@ -6,14 +6,14 @@
 
 	$OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
 	
-	if (isset($_SESSION['login'])) {
+	if (isset($_SESSION['login']) && isset($_GET['idsg'])) {
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add a new song - My Daily Song</title>
+	<title>Update a song - My Daily Song</title>
 
 	<!-- Metadonnées -->
 	<meta charset="utf-8">
@@ -50,8 +50,8 @@
 			<a class="navbar-brand" href="home.php">#MDSongWriter</a>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link" href="songs.php">Available songs</a>
-					<a class="nav-item nav-link active" href="new_song.php">New song <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link active" href="songs.php">Available songs</a>
+					<a class="nav-item nav-link" href="new_song.php">New song <span class="sr-only">(current)</span></a>
 					<a class="nav-item nav-link" href="php_codes/deconnect.php">Sign out</a>
 				</div>
 			</div>
@@ -59,72 +59,68 @@
 
 		<section class="available-songs content-center">
 	
-			<h3 class="display-4 mb-4 mt-4">Add a new song</h3>
+			<h3 class="display-4 mb-4 mt-4">Update a song</h3>
 
-			<form class="new-song-form mt-4" method="POST" ENCTYPE="multipart/form-data" action="php_codes/songCreate.php">
+			<form class="update-song-form mt-4" method="POST" action="php_codes/songUpdate.php">
+
+				<input type="hidden" name="u_id_song" id="u_id_song" value="<?php echo $_GET['idsg']; ?>">
+
+				<?php
 				
+					$stmt = $DefaultSong->readSong("id_song", $_GET['idsg']);
+
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+				
+				?>
+
 				<div class="form-group row">
-					<label for="name_song" class="col-sm-2 col-form-label">Song File</label>
+					<label for="n_title" class="col-sm-2 col-form-label">New Title</label>
 					<div class="col-sm-10">
-						<input type="file" name="name_song" class="form-control" id="name_song" required>
-						<small class="form-text text-muted">Choose an audio file : mp3, wav</small>
+						<input type="text" name="n_title" class="form-control" id="n_title" value="<?php echo $row['title']; ?>" required>
+						<small class="form-text text-muted">This new title references this song and will appear on the site.</small>
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="title" class="col-sm-2 col-form-label">Title</label>
+					<label for="n_author" class="col-sm-2 col-form-label">New Author</label>
 					<div class="col-sm-10">
-						<input type="text" name="title" class="form-control" id="title" required>
-						<small class="form-text text-muted">This title references the song and will appear on the site.</small>
+						<input type="text" name="n_author" class="form-control" id="n_author" value="<?php echo $row['author']; ?>" required>
+						<small class="form-text text-muted">Give the author' new name of this song.</small>
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="author" class="col-sm-2 col-form-label">Author</label>
-					<div class="col-sm-10">
-						<input type="text" name="author" class="form-control" id="author" required>
-						<small class="form-text text-muted">Give the author' name of this song.</small>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="lyrics" class="col-sm-2 col-form-label">Lyrics</label>
+					<label for="n_lyrics" class="col-sm-2 col-form-label">Lyrics</label>
 					<div class="col-sm-10">
 						<small class="form-text text-muted mb-1">
 							- Use the break-line to separated verses and chorus. <br>
 							- Define the verses numbering yourself (1- 2- 3- or 1. 2. 3. or else). <br>
 						</small>
-						<textarea name="lyrics" class="form-control" id="lyrics" required></textarea>
+						<textarea name="n_lyrics" class="form-control" id="n_lyrics" required> <?php echo $row['lyrics']; ?> </textarea>
 					</div>
 				</div>
 
-				<label class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" id="existMeditation">
-					<span class="custom-control-indicator"></span>
-					<span class="custom-control-description">I want to include meditations to this song !</span>
-				</label>
-
-				<div class="form-group row div-meditation">
-					<label for="meditation" class="col-sm-2 col-form-label">Meditations</label>
+				<div class="form-group row div-n_meditation">
+					<label for="n_meditation" class="col-sm-2 col-form-label">New Meditations</label>
 					<div class="col-sm-10">
 						<small class="form-text text-muted mb-1">
 							- Use the break-line to separated verses and chorus. <br>
 							- Define the verses numbering yourself (1- 2- 3- or 1. 2. 3. or else). <br>
 						</small>
-						<textarea name="meditation" class="form-control" id="meditation"></textarea>
+						<textarea name="n_meditation" class="form-control" id="n_meditation"> <?php echo $row['meditation']; ?> </textarea>
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="release_date" class="col-sm-2 col-form-label">Release date</label>
+					<label for="n_release_date" class="col-sm-2 col-form-label">New Release date</label>
 					<div class="col-sm-10">
-						<input type="date" name="release_date" class="form-control" id="release_date" min="<?php echo date('Y-m-d'); ?>" required>
-						<small class="form-text text-muted">Choose the release date of this song.</small>
+						<input type="date" name="n_release_date" class="form-control" id="n_release_date" min="<?php echo date('Y-m-d'); ?>"  value="<?php echo $row['release_date']; ?>" required>
+						<small class="form-text text-muted">Choose the new release date of this song.</small>
 					</div>
 				</div>
 				
 				<div class="div-submit-button mb-4">
-					<button type="submit" class="submit-button" id="save-song-btn"><i class="icon-hdd-2"></i> Save this song informations </button>
+					<button type="submit" class="submit-button" id="update-song-btn"><i class="icon-hdd-2"></i> Update this song informations </button>
 				</div>
 
 			</form>

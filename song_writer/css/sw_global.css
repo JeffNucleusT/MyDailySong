@@ -157,48 +157,92 @@
 	padding-bottom: 50px;
 }
 
-.available-songs .list-group {
-	width: 50%;
+.available-songs .nav,
+.available-songs .tab-content {
+	width: 70%;
 }
 
-.available-songs .list-group .list-group-item p.mb-1 {
+.available-songs .nav .nav-link:not(.active){
+	color: #fff;
+}
+
+.available-songs .tab-content {
+	display: flex;
+	justify-content: center;
+}
+
+.available-songs .tab-content .list-group {
+	width: 100%;
+}
+
+.available-songs .tab-content .list-group .list-group-item p.mb-1 {
 	text-align: center;
 }
 
-.available-songs .list-group .modal-header,
-.available-songs .list-group .modal-footer {
-	background: #551a8b;
-	color: #fff;
-	max-height: 300px;
-	overflow: auto;
+.available-songs .tab-content .list-group .modal-lg {
+	max-width: 90%;
 }
 
-.available-songs .list-group .modal-header > div {
+.available-songs .tab-content .list-group .modal-header,
+.available-songs .tab-content .list-group .modal-footer {
+	background: #551a8b;
+	color: #fff;
+}
+
+.available-songs .tab-content .list-group .modal-header > div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
 
-.available-songs .list-group .modal-header hr {
+.available-songs .tab-content .list-group .modal-header hr {
 	width: 100%;
 }
 
-.available-songs .list-group .modal-header .close {
+.available-songs .tab-content .list-group .modal-header .close {
 	color: #fff;
 }
 
-.available-songs .list-group .modal-body {
+.available-songs .tab-content .list-group .modal-body {
 	text-align: center;
+	max-height: 400px;
+	overflow: auto;
+	display: flex;
+	width: 100%;
 }
 
-.available-songs .list-group .modal-footer {
+.available-songs .tab-content .list-group .modal-body .lyrics {
+	border-right: 1px solid #ccc;
+	padding-right: 15px;
+	flex: 1;
+}
+
+.available-songs .tab-content .list-group .modal-body .meditations {
+	padding-left: 15px;
+	flex: 1;
+}
+
+.available-songs .tab-content .list-group .modal-footer {
+	justify-content: center;
+}
+
+.modal-dialog-centered {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+	min-height: calc(100% - (.5rem * 2));
+	margin-top: 0px;
 	justify-content: center;
 }
 
 /* new_song.php */
 
-.new-song-form {
+.new-song-form,
+.update-song-form {
 	background: #fff;
 	width: 80%;
 	padding: 30px;
@@ -206,7 +250,9 @@
 }
 
 .new-song-form textarea#lyrics,
-.new-song-form textarea#meditation {
+.update-song-form textarea#n_lyrics,
+.new-song-form textarea#meditation,
+.update-song-form textarea#n_meditation {
 	height: 300px;
 	resize: none;
 }

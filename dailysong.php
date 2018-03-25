@@ -100,7 +100,7 @@
 		<?php 
 			$actual_date = (isset($_GET["rl_dt"])) ? $_GET["rl_dt"] : date("Y-m-d", time());
 			
-			$stmt1 = $DefaultSong->readSong($actual_date);
+			$stmt1 = $DefaultSong->readSong("release_date", $actual_date);
 
 			$nb1 = $stmt1->rowCount();
 

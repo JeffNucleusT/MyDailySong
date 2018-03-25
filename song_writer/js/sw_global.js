@@ -26,8 +26,8 @@ $(function () {
 
 	$('#login-button').click(function (e) {
 
-		var login = $('#login-input').val();
-			password = $('#password-input').val();
+		var login = $('#login-input').val(),
+			password = $('#password-input').val(),
 			btnHtml = $(this).html();
 
 		if ((login == "") || (password == "")) {
@@ -84,11 +84,11 @@ $(function () {
 		
 		elt.preventDefault();
 
-		var name_song = $('#name_song');
-			title = $('#title');
-			author = $('#author');
-			lyrics = $('#lyrics');
-			release_date = $('#release_date');
+		var name_song = $('#name_song').val(),
+			title = $('#title').val(),
+			author = $('#author').val(),
+			lyrics = $('#lyrics').val(),
+			release_date = $('#release_date').val();
 
 			befBtn = "<i class='icon-hdd-2'></i> Save these song' informations";
 			aftBtn = "<i class='icon-spin4 animate-spin'></i> Saving...";
@@ -117,7 +117,7 @@ $(function () {
 						alert('The song has been saved successfully !');
 						setTimeout (function (){
 							location.href=location.href;
-						}, 2000);
+						}, 1000);
 					}
 					else if (results.includes('get_file_error')) {
 						$('#save-song-btn').html(befBtn);
@@ -149,6 +149,131 @@ $(function () {
 				error : function () {
 					$('#save-song-btn').html(befBtn);
 					alert('An script error occured at the time of the publication !');
+				}
+
+			});
+
+		}
+
+	});
+
+	// Envoi des data pour la mise à jour des songs
+
+	$('.update-song-form').on('submit', function (elt) {
+		
+		elt.preventDefault();
+
+		var u_id_song = $('#u_id_song').val(),
+			n_title = $('#n_title').val(),
+			n_author = $('#n_author').val(),
+			n_lyrics = $('#n_lyrics').val(),
+			n_meditation = $('#n_meditation').val(),
+			n_release_date = $('#n_release_date').val();
+
+			befBtn = "<i class='icon-hdd-2'></i> Update this song informations";
+			aftBtn = "<i class='icon-spin4 animate-spin'></i> Updating...";
+
+		if ((u_id_song === "" || u_id_song === null) || (n_title === "" || n_title === null) || (n_author === "" || n_author === null) || (n_lyrics === "" || n_lyrics === null) || (n_release_date === "" || n_release_date === null)) {
+			alert('You must fill in all the fields !')
+		}
+
+		else {
+
+			$('#update-song-btn').html(aftBtn);
+
+			var datas = $(this).serialize();
+
+			$.ajax({
+
+				type: 'POST',
+				url: 'php_codes/songUpdate.php',
+				data: datas,
+
+				success: function (results) {
+					
+					if (results.includes('update_success')) {
+						$('#save-song-btn').html(befBtn);
+						alert('The song has been updated successfully !');
+						setTimeout (function (){
+							location.href=location.href;
+						}, 1000);
+					}
+					else if (results.includes('Title_Exist')) {
+						$('#update-song-btn').html(befBtn);
+						alert('This title is already used by an another song !');
+					}
+					else if (results.includes('Date_Exist')) {
+						$('#update-song-btn').html(befBtn);
+						alert('Another song will be released on this date ! Change this one !');
+					}
+					else if (results.includes('Date_Passed')) {
+						$('#update-song-btn').html(befBtn);
+						alert('This release day has passed ! Choose a future date !');
+					}
+					else {
+						$('#update-song-btn').html(befBtn);
+						alert('An server error occured at the time of the update !' + results);
+					}
+
+				},
+
+				error : function () {
+					$('#update-song-btn').html(befBtn);
+					alert('An script error occured at the time of the update !');
+				}
+
+			});
+
+		}
+
+	});
+	
+	// Envoi des data pour la suppression des songs
+
+	$('.del_btnSong').on('click', function () {
+		
+		var d_id_song = $(this).parent().children('.del_idSong').val();
+
+			befBtn = "YES";
+			aftBtn = "<i class='icon-spin4 animate-spin'></i>";
+
+		if (d_id_song === "" || d_id_song === null) {
+			alert('No song to delete !')
+		}
+
+		else {
+
+			$(this).html(aftBtn);
+
+			$.ajax({
+
+				type: 'POST',
+				url: 'php_codes/songDelete.php',
+				data: "d_id_song=" + d_id_song,
+
+				success: function (results) { 
+					
+					if (results.includes('delete_success')) {
+						$('#del_btnSong'+d_id_song).html(befBtn);
+						alert('The song has been deleted successfully !');
+						$('#deleteSongModal'+d_id_song).modal('hide');
+						$('#deleteSongModal'+d_id_song).parent().parent().slideUp();
+
+						setTimeout (function (){
+							location.href=location.href;
+						}, 1000);
+
+					}
+					else {
+						$('#del_btnSong'+d_id_song).html(befBtn);
+						alert('An server error occured at the time of the delete !' + results);
+					}
+
+				},
+
+				error : function () {
+					$('#del_btnSong'+d_id_song).html(befBtn);
+					alert('An script error occured at the time of the delete !');
 				}
 
 			});
