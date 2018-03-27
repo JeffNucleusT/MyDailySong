@@ -103,6 +103,7 @@ $(function () {
 
 	});
 
+	
 
 	// Barres de navigation avec Nicescroll
 	$('html').niceScroll({

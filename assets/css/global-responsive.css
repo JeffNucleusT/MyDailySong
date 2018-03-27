@@ -4,7 +4,7 @@
     /* All pages */
 
     .display-1 {
-        font-size: 4rem;
+        font-size: 2rem;
     } 
 
     .navbar {
@@ -31,68 +31,50 @@
     }
 
     .page-header .page-header-nav {
-        flex-direction: column;
-        flex-wrap: inherit;
+        height: 60vh;
     }
 
-    .page-header .page-header-nav > p {
-        margin-bottom: 60px;
+    .page-header .page-header-nav .row .col-12 h1 img {
+        width: 30px;
+        height: 30px;
     }
 
-    .page-header .page-header-nav form input,
-    .search-header .search-header-nav form input {
-        width: 265px;
-    }
-
-    .spiritual-meditation, .worship-moment,
-    .personal-intervention, .today-media, .who-we-are,
-    .contact-online, .contact-message, .our-mission {
+    .spiritual-meditation, .worship-moment, .personal-intervention,
+    .who-we-are, .our-mission, .contact-online, .today-media {
         height: auto !important;
     }
 
-    /* index.php */
+    /* Home */
 
-    .spiritual-meditation .display-1,
-    .who-we-are .display-1 {
-        margin-bottom: 0;
-    }
-
-    .spiritual-meditation .row .col-12,
-    .who-we-are .row .col-12 {
-        padding: 0;
-    }
-
-    .spiritual-meditation .row .col-12 p:not(.sm-p-cover),
-    .who-we-are .row .col-12 p:not(.sm-p-cover) {
-        margin-left: 0;
+    .spiritual-meditation .row .col-12 p:not(.sm-p-cover), .who-we-are .row .col-12 p {
+        margin-left: 0px;
+        transform: none;
+        padding-top: 0px;
         background: none;
-        padding: 20px;
-        padding-bottom: 30px;
-        margin-top: 0;
-        width: 100%;
-        background: #551a8b;
+    }
+
+    .worship-moment .col-12 p, .our-mission .col-12 p, .personal-intervention .col-12 p {
+        padding: 10px;
     }
 
     .worship-moment .col-12 h1,
-    .our-mission .col-12 h1 {
+    .personal-intervention .col-12 h1,
+    .who-we-are .row .col-12 h1,
+    .our-mission .row .col-12 h1 {
         margin-top: 30px;
-        margin-bottom: 30px;
     }
 
-    .worship-moment .col-12 p,
-    .our-mission .col-12 p,
-    .personal-intervention .col-12 p {
-        padding: 0;
-    }
-
-    /* dailysong.php */
+    /* daily song */
 
     .today-media .row .alert-noavailable .alert {
-        font-size: 1.2rem;
+        font-size: 100%;
     }
 
     .today-media .row .today-song .today-song-title {
         font-size: 1.2rem;
+    }
+
+    .today-media .row .today-song .today-song-title {
         margin-top: 20px;
     }
 
@@ -100,24 +82,29 @@
         margin-bottom: 20px;
     }
 
-    /* contact.php */
+    /* about */
 
-    .contact-online .row .contact-online-web,
-    .contact-online .row .contact-online-social {
+    .who-we-are .row .col-12 {
+        flex-direction: column;
+    }
+
+    /* contact */
+
+    .contact-online .row .contact-online-social,
+    .contact-online .row .contact-online-web {
+        align-items: center;
         padding-left: 0;
         padding-right: 0;
-        align-items: center;
+        border: 0;
     }
 
     .contact-online .row .contact-online-web {
-        margin-top: 20px;
-        background: #551a8b;
-        padding-bottom: 10px;
+        margin-top: 10px;
     }
 
-    .contact-online .row .contact-online-social a,
-    .contact-online .row .contact-online-web p,
-    .contact-online .row .contact-online-web a {
+    .contact-online .row .contact-online-social a, 
+    .contact-online .row .contact-online-web a,
+    .contact-online .row .contact-online-web p {
         font-size: 1rem;
     }
 
@@ -126,6 +113,11 @@
         transform-origin: center;
     }
 
+    .contact-online .row .contact-online-social a:not(:last-child),
+    .contact-online .row .contact-online-web a:not(:last-child) {
+        margin-bottom: 10px;
+    }
+ 
     /* Footer */
 
     .page-footer .social-media a {
@@ -134,14 +126,10 @@
 
 }
 
-@media screen and (min-height: 350px) and (max-height: 500px) {
-    
-    .page-header, .page-header .carousel .img-fluid {
-        height: auto !important;
-    }
-    
-    .page-header .row img.hidden-sm-down {
-        margin-bottom: 100px;
+@media screen and (max-width: 414px) {
+
+    .page-header .page-header-nav .row .col-12 {
+        justify-content: center;
     }
 
 }
