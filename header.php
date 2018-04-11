@@ -1,7 +1,7 @@
 
 <?php             
     if($page[0] == 'home') {
-        $title = 'Welcome on My Daily Song';
+        $title = 'Welcome to My Daily Song';
         $subject = 'Home page of My Daily Song';
         $c_title = $title;
     } 
