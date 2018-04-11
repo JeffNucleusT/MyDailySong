@@ -54,6 +54,10 @@ h1.display-1, h1.display-1 * {
 	padding-right: 0;
 }
 
+audio {
+    background: #551a8b;
+}
+
 /* Navigation */
 
 .navbar {
@@ -124,8 +128,8 @@ h1.display-1, h1.display-1 * {
 /* Entête des pages */
 
 .page-header, .page-header .carousel .img-fluid {
-        height: auto !important;
-    }
+    max-height: 910px !important;
+}
 
 .page-header .page-header-nav {
 	width: 100%;
@@ -133,30 +137,41 @@ h1.display-1, h1.display-1 * {
 	padding: 40px 25px;
 	display: flex;
 	justify-content: space-between;
-	flex-wrap: wrap;
-	height: 120vh;
+    flex-wrap: wrap;
+    height: 100%;
+	max-height: 853px !important;
 }
 
 .page-header .page-header-nav #showNavBtn,
-.search-header .search-header-nav #showNavBtn {
+.search-header .search-header-nav #showNavBtn,
+.page-header .page-header-nav .nav-search a {
 	color: rgba(255, 255, 255, .7);
 	border: 1px solid rgba(255, 255, 255, .7);
-	padding: 12px 5px;
-	transition: color, border-color, .7s;
 	position: fixed;
 	z-index: 9999;
 	cursor: pointer;
 	background: none;
+	box-shadow: 0 0 2px #551a8b;
+	text-shadow: 0 0 0px #551a8b;
+	transition: color, border-color, text-shadow, .7s;
+} 
+
+.page-header .page-header-nav #showNavBtn,
+.search-header .search-header-nav #showNavBtn {
+	padding: 12px 5px;
 } 
 
 .page-header .page-header-nav #showNavBtn:hover,
 .page-header .page-header-nav #showNavBtn:focus,
 .search-header .search-header-nav #showNavBtn:hover,
-.search-header .search-header-nav #showNavBtn:focus {
+.search-header .search-header-nav #showNavBtn:focus,
+.page-header .page-header-nav .nav-search a:hover,
+.page-header .page-header-nav .nav-search a:focus {
 	color: rgba(255, 255, 255, 1);
 	border-color: rgba(255, 255, 255, 1);
 	text-decoration: none;
 	outline: none;
+	text-shadow: 0 0 1px #551a8b;
 }
 
 .page-header .page-header-nav #showNavBtn i:first-child,
@@ -170,28 +185,10 @@ h1.display-1, h1.display-1 * {
 	font-size: .8rem;
 }
 
-.page-header .page-header-nav .nav-search a,
-.search-header .search-header-nav .nav-search a {
-	color: rgba(255, 255, 255, .7);
-	border: 1px solid rgba(255, 255, 255, .7);
+.page-header .page-header-nav .nav-search a {
 	padding: 12px;
-	transition: color, border-color, .7s;
-	position: fixed;
-	z-index: 9999;
-	cursor: pointer;
 	right: 0;
 	margin-right: 25px;
-	background: none;
-} 
-
-.page-header .page-header-nav .nav-search a:hover,
-.page-header .page-header-nav .nav-search a:focus,
-.search-header .search-header-nav .nav-search a:hover,
-.search-header .search-header-nav .nav-search a:focus {
-	color: rgba(255, 255, 255, 1);
-	border-color: rgba(255, 255, 255, 1);
-	text-decoration: none;
-	outline: none;
 }
 
 .tooltip {
@@ -206,7 +203,7 @@ h1.display-1, h1.display-1 * {
 
 .page-header .page-header-nav .row .col-12 {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	color: #fff;
 	text-align: center;
@@ -325,8 +322,9 @@ h1.display-1, h1.display-1 * {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: #292b2c;
-	color: #fff;
+	background: #fff;
+    color: #292b2c;
+    border-right: 3px dashed #551a8b;
 }
 
 .today-media .row .today-song .today-song-title {
@@ -342,10 +340,6 @@ h1.display-1, h1.display-1 * {
 	content: "\2014 \00A0";
 }
 
-.today-media .row .today-song audio {
-	width: 100%;
-}
-
 .today-media .row .today-song .today-song-like,
 .today-media .row .today-song .today-song-date {
 	margin-top: 40px;
@@ -353,6 +347,10 @@ h1.display-1, h1.display-1 * {
 
 .today-media .row .today-song .today-song-like {
 	margin-bottom: 40px;
+}
+
+.today-media .row .today-song .today-song-like button:not([disabled]) {
+	cursor: pointer;
 }
 
 .today-media .row .today-song .today-song-options .dropdown-item {
@@ -531,7 +529,8 @@ h1.display-1, h1.display-1 * {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	border-right: 1px solid rgba(255, 255, 255, .3);
+    border-right: 1px solid rgba(255, 255, 255, .3);
+    background: #551a8b;
 }
 
 .contact-online .row .contact-online-social {
@@ -661,13 +660,13 @@ h1.display-1, h1.display-1 * {
 
 .title-search {
 	position: relative;
-	min-height: 500px;
 	text-align: center;
 	color: #fff;
 }
 
 .title-search img {
-	margin-bottom: 50px;
+    margin-bottom: 50px;
+    width: 55%;
 }
 
 .title-search h1.display-1 {
@@ -714,6 +713,19 @@ h1.display-1, h1.display-1 * {
 	margin-bottom: 50px;
 }
 
+/* Autoplay */
+
+.autoplay {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 6666;
+}
+
+.autoplay > div.pt-2 {
+    background: #251930;
+}
+
 /* Pied de page */
 
 .page-footer {
@@ -748,7 +760,7 @@ h1.display-1, h1.display-1 * {
 	font-size: 3rem;
 	padding: 0;
 	margin-right: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 40px;
 	transition: transform .7s;
 	text-shadow: 0 0 2px #551a8b;
 }

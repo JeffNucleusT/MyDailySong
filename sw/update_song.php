@@ -1,26 +1,31 @@
-<?php 
-	include_once '../php_codes/class.database.php';
-	include_once '../php_codes/class.mdsongwriter.php';
-	include_once '../php_codes/class.song.php';
-	include_once 'php_codes/config.php';
+<?php
+    session_start();
 
-	$OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
-	
 	if (isset($_SESSION['login']) && isset($_GET['idsg'])) {
+        
+        include_once '../phpcs/class.database.php';
+        include_once '../phpcs/class.mdsongwriter.php';
+        include_once '../phpcs/class.upload.php';
+        include_once '../phpcs/class.song.php';
+        include_once '../phpcs/class.comment.php';
+        include_once '../phpcs/class.message.php';
+        include_once '../phpcs/config.php';
+
+        $OneMDSwriter = new MdSongWriter($db, $_SESSION['id'], $_SESSION['login'], '');
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Update a song - My Daily Song</title>
+	<title>Update a song - MDSongWriter</title>
 
 	<!-- Metadonnées -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="author" content="Nucléus Technologies">
 	<meta name="expires" content="never">
-	<meta name="subject" content="New song page of MDSongWriter">
+	<meta name="subject" content="Page of update songs for MDSongWriter">
 
 	<!-- Feuilles de styles -->
 	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
@@ -47,12 +52,12 @@
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand" href="home.php">#MDSongWriter</a>
+			<a class="navbar-brand" href="./?page=home.php">#MDSongWriter</a>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link active" href="songs.php">Available songs</a>
-					<a class="nav-item nav-link" href="new_song.php">New song <span class="sr-only">(current)</span></a>
-					<a class="nav-item nav-link" href="php_codes/deconnect.php">Sign out</a>
+					<a class="nav-item nav-link active" href="./?page=songs.php">Available songs</a>
+					<a class="nav-item nav-link" href="./?page=new_song.php">New song <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" href="php_codes/signout.php">Sign out</a>
 				</div>
 			</div>
 		</nav>
@@ -96,7 +101,7 @@
 							- Use the break-line to separated verses and chorus. <br>
 							- Define the verses numbering yourself (1- 2- 3- or 1. 2. 3. or else). <br>
 						</small>
-						<textarea name="n_lyrics" class="form-control" id="n_lyrics" required> <?php echo $row['lyrics']; ?> </textarea>
+						<textarea name="n_lyrics" class="form-control" id="n_lyrics" required> <?php echo strip_tags($row['lyrics']); ?> </textarea>
 					</div>
 				</div>
 
@@ -107,14 +112,14 @@
 							- Use the break-line to separated verses and chorus. <br>
 							- Define the verses numbering yourself (1- 2- 3- or 1. 2. 3. or else). <br>
 						</small>
-						<textarea name="n_meditation" class="form-control" id="n_meditation"> <?php echo $row['meditation']; ?> </textarea>
+						<textarea name="n_meditation" class="form-control" id="n_meditation"> <?php echo strip_tags($row['meditation']); ?> </textarea>
 					</div>
 				</div>
 
 				<div class="form-group row">
 					<label for="n_release_date" class="col-sm-2 col-form-label">New Release date</label>
 					<div class="col-sm-10">
-						<input type="date" name="n_release_date" class="form-control" id="n_release_date" min="<?php echo date('Y-m-d'); ?>"  value="<?php echo $row['release_date']; ?>" required>
+						<input type="date" name="n_release_date" class="form-control" id="n_release_date"  value="<?php echo $row['release_date']; ?>" required>
 						<small class="form-text text-muted">Choose the new release date of this song.</small>
 					</div>
 				</div>

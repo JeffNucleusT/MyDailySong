@@ -104,7 +104,7 @@ $(function () {
 			$.ajax({
 
 				type: 'POST',
-				url: 'php_codes/songCreate.php',
+				url: 'phpcs/songCreate.php',
 				data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
 				contentType: false,       // The content type used when sending data to the server.
 				cache: false,             // To unable request pages to be cached
@@ -112,7 +112,7 @@ $(function () {
 
 				success: function (results) {
 					
-					if (results.includes('Save_Success')) {
+					if (results == 'Save_Success') {
 						$('#save-song-btn').html(befBtn);
 						alert('The song has been saved successfully !');
 						setTimeout (function (){
@@ -134,10 +134,6 @@ $(function () {
 					else if (results.includes('Date_Exist')) {
 						$('#save-song-btn').html(befBtn);
 						alert('Another song will be released on this date ! Change this one !');
-					}
-					else if (results.includes('Date_Passed')) {
-						$('#save-song-btn').html(befBtn);
-						alert('This release day has passed ! Choose a future date !');
 					}
 					else {
 						$('#save-song-btn').html(befBtn);
@@ -186,12 +182,12 @@ $(function () {
 			$.ajax({
 
 				type: 'POST',
-				url: 'php_codes/songUpdate.php',
+				url: 'phpcs/songUpdate.php',
 				data: datas,
 
 				success: function (results) {
 					
-					if (results.includes('update_success')) {
+					if (results == 'update_success') {
 						$('#save-song-btn').html(befBtn);
 						alert('The song has been updated successfully !');
 						setTimeout (function (){
@@ -205,10 +201,6 @@ $(function () {
 					else if (results.includes('Date_Exist')) {
 						$('#update-song-btn').html(befBtn);
 						alert('Another song will be released on this date ! Change this one !');
-					}
-					else if (results.includes('Date_Passed')) {
-						$('#update-song-btn').html(befBtn);
-						alert('This release day has passed ! Choose a future date !');
 					}
 					else {
 						$('#update-song-btn').html(befBtn);
@@ -248,12 +240,12 @@ $(function () {
 			$.ajax({
 
 				type: 'POST',
-				url: 'php_codes/songDelete.php',
+				url: 'phpcs/songDelete.php',
 				data: "d_id_song=" + d_id_song,
 
 				success: function (results) { 
 					
-					if (results.includes('delete_success')) {
+					if (results == 'delete_success') {
 						$('#del_btnSong'+d_id_song).html(befBtn);
 						alert('The song has been deleted successfully !');
 						$('#deleteSongModal'+d_id_song).modal('hide');

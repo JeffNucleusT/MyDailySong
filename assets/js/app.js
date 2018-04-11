@@ -67,7 +67,7 @@ $(function () {
 
 					$.ajax({
 						type : 'POST',
-						url : 'php_codes/messagePost.php',
+						url : 'phpcs/messagePost.php',
 						data : 'name_msg=' + name_msg + '&email_msg=' + email_msg + '&message_msg=' + message_msg,
 						
 						success : function(valReturn) {

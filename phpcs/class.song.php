@@ -88,26 +88,20 @@
 					$stmt2->execute();
 
 					if ($stmt2->rowCount() == 0) {
-					
-						if ($release_date >= date("Y-m-d")) {
-							
-							$query3 = "INSERT INTO " . $this->_table_name . "(name_song, title, author, lyrics, meditation, release_date) VALUES(:name_song, :title, :author, :lyrics, :meditation, :release_date)";
-							$stmt3 = $this->_con->prepare($query3);
+								
+                        $query3 = "INSERT INTO " . $this->_table_name . "(name_song, title, author, lyrics, meditation, release_date) VALUES(:name_song, :title, :author, :lyrics, :meditation, :release_date)";
+                        $stmt3 = $this->_con->prepare($query3);
 
-							$stmt3->bindParam(':name_song', $name_song);
-							$stmt3->bindParam(':title', $title);
-							$stmt3->bindParam(':author', $author);
-							$stmt3->bindParam(':lyrics', $lyrics);
-							$stmt3->bindParam(':meditation', $meditation);
-							$stmt3->bindParam(':release_date', $release_date);
+                        $stmt3->bindParam(':name_song', $name_song);
+                        $stmt3->bindParam(':title', $title);
+                        $stmt3->bindParam(':author', $author);
+                        $stmt3->bindParam(':lyrics', $lyrics);
+                        $stmt3->bindParam(':meditation', $meditation);
+                        $stmt3->bindParam(':release_date', $release_date);
 
-							$stmt3->execute();
+                        $stmt3->execute();
 
-							return 'Save_Success';
-
-						} else {
-							return 'Date_Passed';
-						}
+                        return 'Save_Success';
 						
 					} else {
 						return 'Date_Exist';
@@ -141,6 +135,22 @@
 				return 'Statement Error : ' . $e;
 			}
 
+			if ($column == "release_date") {
+				
+				$cpt=0;
+
+				while ($stmt->rowCount() == 0) {
+
+					$cpt=$cpt+1;
+					$n_value = date("Y-m-d", strtotime($value . ' - ' . $cpt . ' days'));
+
+					$stmt = $this->_con->prepare($query);
+					$stmt->bindParam(':value', $n_value);
+					$stmt->execute();
+				}	
+
+			}	
+
 			return $stmt;
 		}
 
@@ -170,27 +180,21 @@
 					$stmt2->execute();
 
 					if ($stmt2->rowCount() == 0) {
-					
-						if ($release_date >= date("Y-m-d")) {
 
-							$query = "UPDATE " . $this->_table_name . " SET title = :title, author = :author, lyrics = :lyrics, meditation = :meditation, release_date = :release_date WHERE id_song = :idSong";
-			
-							$stmt = $this->_con->prepare($query);
+                        $query = "UPDATE " . $this->_table_name . " SET title = :title, author = :author, lyrics = :lyrics, meditation = :meditation, release_date = :release_date WHERE id_song = :idSong";
+        
+                        $stmt = $this->_con->prepare($query);
 
-							$stmt->bindParam(":title", $title);
-							$stmt->bindParam(":author", $author);
-							$stmt->bindParam(":lyrics", $lyrics);
-							$stmt->bindParam(":meditation", $meditation);
-							$stmt->bindParam(":release_date", $release_date);
-							$stmt->bindParam(":idSong", $idSong);
+                        $stmt->bindParam(":title", $title);
+                        $stmt->bindParam(":author", $author);
+                        $stmt->bindParam(":lyrics", $lyrics);
+                        $stmt->bindParam(":meditation", $meditation);
+                        $stmt->bindParam(":release_date", $release_date);
+                        $stmt->bindParam(":idSong", $idSong);
 
-							$stmt->execute();
+                        $stmt->execute();
 
-							return "update_success";
-						
-						} else {
-							return 'Date_Passed';
-						}
+                        return "update_success";
 						
 					} else {
 						return 'Date_Exist';
@@ -219,7 +223,7 @@
 
 				$row = $stmt1->fetch(PDO::FETCH_ASSOC);
 
-				unlink("../../media/" . $row['name_song']);
+				if(file_exists($row['name_song'])) unlink("../../media/" . $row['name_song']);
 
 				$query2 = "DELETE FROM comments WHERE id_song = :idSong";
 				$stmt2 = $this->_con->prepare($query2);
@@ -274,7 +278,7 @@
 										<h6 class="card-subtitle mb-2 text-muted"><i>by ' . $row["author"] . '</i></h6>
 										<p class="card-text">' . substr(strip_tags($row["lyrics"]), 0, 200).'...' . '</p>
 										<small>Release on the ' . $this->formatDate($row["release_date"]) . '</small> | 
-										<a href="dailysong.php?rl_dt=' . $row["release_date"] . '" class="card-link">Go to this song <i class="icon-right-open-big"></i></a>
+										<a href="./?page=dailysong&rl_dt=' . $row["release_date"] . '" class="card-link">Go to this song <i class="icon-right-open-big"></i></a>
 									</div>
 								</article>
 							</div>
@@ -302,23 +306,41 @@
 		{
 			$id_song = htmlspecialchars(strip_tags($id_song));
 			$vote = htmlspecialchars(strip_tags($vote));
-			$_table_col = $vote . "s";
+			$_table_col = $vote . "s";			
 
-			$query = "UPDATE " . $this->_table_name . " SET " . $_table_col . " = " . $_table_col . " + 1 WHERE " . $id_song . " = :id_song";
+			if (isset($_COOKIE['vote' . $id_song])) {
+				
+				$query_s = "UPDATE " . $this->_table_name . " SET " . $_COOKIE['vote' . $id_song] . "s = " . $_COOKIE['vote' . $id_song] . "s - 1, " . $_table_col . " = " . $_table_col . " + 1 WHERE " . $id_song . " = :id_song";
+				
+			} else {
+				
+				$query_s = "UPDATE " . $this->_table_name . " SET " . $_table_col . " = " . $_table_col . " + 1 WHERE " . $id_song . " = :id_song";
+
+			}
+
+			setcookie('vote' . $id_song, $vote, time() + 3650*24*3600, null, null, false, true);
+
+			$query = $query_s;
 
 			try {
-				
+					
 				$stmt = $this->_con->prepare($query);
 				$stmt->bindParam(':id_song', $id_song);
 				$stmt->execute();
 
-				setcookie('vote' . $id_song, $vote, time() + 3650*24*3600, null, null, false, true);
+				$query_f = "SELECT likes, dislikes FROM songs WHERE id_song = :id_song";
+				$stmt_f = $this->_con->prepare($query_f);
+				$stmt_f->bindParam(':id_song', $id_song);
+				$stmt_f->execute();
 
-				return 'vote_success';
+				$row = $stmt_f->fetch(PDO::FETCH_ASSOC);
+
+				return 'vote_success|' . $row['likes'] . '|' . $row['dislikes'];
 
 			} catch (Exception $e) {
 				return 'Statement Error : ' . $e;
 			}
+
 		}
 
 	}

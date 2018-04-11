@@ -92,7 +92,7 @@
 						$_SESSION["id"] = htmlspecialchars($row["id"]);
 						$_SESSION["login"] = $n_login;
 						
-						header('location:../home.php');
+						header('location:../?page=home.php');
 
 					}
 
@@ -131,8 +131,6 @@
 			
 			while ($row = $stmt->fetch()) {
 				
-				$dis = ($signe == '<=') ? " disabled' href='#' title='This option is disabled because this song has been released.'" : "' href='update_song.php?idsg=" . $row['id_song'] . "'";
-
 				$infos_mdt = (strlen($row['meditation']) != 0) ? "<i class='icon-info-circled-1'></i>with Meditations" : "";
 
 				echo "
@@ -140,7 +138,7 @@
 						
 						<div class='d-flex w-100 justify-content-between'>
 							
-							<h5 class='mb-1'>" . $row['title'] . " <small>by " . $row['author'] . "</small></h5>
+							<h5 class='mb-1'>" . $row['title'] . " <small>by " . $row['author'] . " | the " . $aSong->formatDate($row['release_date']) . "</small></h5>
 							
 							<div class='dropdown ml-4'>
 								<a class='btn btn-secondary btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -148,8 +146,8 @@
 								</a>
 
 								<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>
-									<a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewSongModal" . $row['id_song'] . "'><i class='icon-eye'></i> View</a>
-									<a class='dropdown-item" . $dis . "><i class='icon-pencil'></i> Update</a>
+									<a class='dropdown-item' href='#' data-toggle='modal' data-backdrop='static' data-target='#viewSongModal" . $row['id_song'] . "'><i class='icon-eye'></i> View</a>
+									<a class='dropdown-item' href='update_song.php?idsg=" . $row['id_song'] . "'><i class='icon-pencil'></i> Update</a>
 									<a class='dropdown-item' href='#' data-toggle='modal' data-backdrop='static' data-target='#deleteSongModal" . $row['id_song'] . "'><i class='icon-trash'></i> Delete</a>
 								</div>
 							</div>

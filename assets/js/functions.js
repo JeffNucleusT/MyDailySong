@@ -34,13 +34,11 @@ function likeOrDislike(id_song, vote) {
 		$btn1 = $('#likeBtn');
 		$btn2 = $('#dislikeBtn');
 		var ttle = 'I don\'t like !';
-		$voteCount = $('#likeBtn .voteCount');
 	} 
 	else if(vote == 'dislike') {
 		$btn1 = $('#dislikeBtn');
 		$btn2 = $('#likeBtn');
 		var ttle = 'I like !';
-		$voteCount = $('#dislikeBtn .voteCount');
 	}
 	
 	$.ajax({
@@ -68,9 +66,10 @@ function likeOrDislike(id_song, vote) {
 					'title' : 'Already choose !',
 					'data-original-title' : 'Already choose !'
 				});
-
-				var voteCount = Math.floor($voteCount.text());
-				$voteCount.text(voteCount+1);
+				
+				var row = result.split('|');
+				$('#likeBtn .voteCount').text(row[1]);
+				$('#dislikeBtn .voteCount').text(row[2]);
 			} 
 			else {
 				alert('A server error occured at the time of your vote hhh !');
@@ -105,7 +104,7 @@ function songSearch(type_search, search, $objet1, $objet2) {
 		} else {
 
 			$.ajax({
-				url : 'php_codes/songSearch.php',
+				url : 'phpcs/songSearch.php',
 				type : 'GET',
 				data : 'type_search=' + type_search + '&search=' + search,
 

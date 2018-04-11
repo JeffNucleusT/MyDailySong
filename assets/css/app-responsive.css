@@ -31,17 +31,16 @@
     }
 
     .page-header .page-header-nav {
-        height: 60vh;
+        height: 40vh;
+    }
+
+    .page-header .page-header-nav .row .col-12 {
+        justify-content: center;
     }
 
     .page-header .page-header-nav .row .col-12 h1 img {
         width: 30px;
         height: 30px;
-    }
-
-    .spiritual-meditation, .worship-moment, .personal-intervention,
-    .who-we-are, .our-mission, .contact-online, .today-media {
-        height: auto !important;
     }
 
     /* Home */
@@ -126,10 +125,19 @@
 
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 960px) {
+    
+    .spiritual-meditation, .worship-moment, .personal-intervention,
+    .who-we-are, .our-mission, .contact-online {
+        height: auto !important;
+    }
 
-    .page-header .page-header-nav .row .col-12 {
-        justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    
+    .today-media {
+        height: auto !important;
     }
 
 }

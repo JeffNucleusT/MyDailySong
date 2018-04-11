@@ -191,17 +191,17 @@ class upload
 				}
 				// on récupère le nom aléatoire en ajoutant à la fin le nombre de fichiers
 				// grace à $nbFile sans oublier l'extension à la fin
-				$this->cl_new_name = $strf.$nbFile.$this->cl_extension_fichier;
+				$this->cl_new_name = strip_tags($strf.$nbFile.$this->cl_extension_fichier);
 			}
 			// le nom du fichier final est saisi par l'utilisateur
 			else if (!empty($nouveau_nom_fichier) && $nouveau_nom_fichier!='aleatoire')
 			{
-				$this->cl_new_name = $nouveau_nom_fichier.$this->cl_extension_fichier;
+				$this->cl_new_name = strip_tags($nouveau_nom_fichier.$this->cl_extension_fichier);
 			}
 			// autrement on récupère le nom d'origine du fichier à uploader
 			else
 			{
-				$this->cl_new_name = $this->cl_fichier;
+				$this->cl_new_name = strip_tags($this->cl_fichier);
 			}
 		}
 		else
