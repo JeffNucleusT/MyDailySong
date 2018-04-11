@@ -32,6 +32,10 @@
 <head>
 	<title><?php echo $title; ?></title>
 
+	<!-- Google Analytics -->
+
+	<?php include_once 'google_analytics.php'; ?>
+
 	<!-- Metadonnées -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
