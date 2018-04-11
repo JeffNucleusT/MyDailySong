@@ -153,7 +153,7 @@
 
             </div>
             <div class="col-12 col-md-8" id="today-leave-comment">
-                <h1 class="display-1 text-center">Leave a Coment</h1>
+                <h1 class="display-1 text-center">Leave a Comment</h1>
                 <form class="comment-form" method="POST" action="phpcs/commentCreate.php" id="mainForm">
                     <input type="hidden" value="None" id="responce_c">
                     <div class="comment-form-group">

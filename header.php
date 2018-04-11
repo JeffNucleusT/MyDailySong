@@ -9,7 +9,7 @@
         $title = (isset($page[1])) ? "The " . $DefaultSong->formatDate($page[1]) . "'s song" : "This " . date('l') . "'s song";
         $title .= ' - My Daily Song';
         $subject = 'The daily song page of My Daily Song';
-        $c_title = 'The Daily Song';
+        $c_title = 'My Daily Song';
     }
     elseif($page[0] == 'about') {
         $title = 'About us - My Daily Song';
@@ -72,7 +72,7 @@
 
 		<nav class="navbar" role="navigation">
 			<a href="./"><i class="icon-music-4"></i> Home <i class="icon-music-4"></i></a>
-			<a href="./?page=dailysong"><i class="icon-music-1"></i> Daily Song <i class="icon-music-1"></i></a>
+			<a href="./?page=dailysong"><i class="icon-music-1"></i> My Daily Song <i class="icon-music-1"></i></a>
 			<a href="./?page=about"><i class="icon-music-outline"></i> About <i class="icon-music-outline"></i></a>
 			<a href="./?page=contact"><i class="icon-music-3"></i> Contact <i class="icon-music-3"></i></a>
 		</nav>
