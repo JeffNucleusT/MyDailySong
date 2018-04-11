@@ -44,11 +44,11 @@
                                 <i class="icon-share"></i> Share
                             </a>
                             <div class="dropdown-menu" aria-labelledby="socialShare">
-                                <a href="#" id="share_facebook" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_facebook" data-toggle="tooltip" data-placement="right" title="Share on Facebook"><i class="icon-facebook"></i> Facebook</a>
+                                <a href="#" id="share_facebook" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_facebook" data-toggle="tooltip" data-placement="right" title="Share on Facebook"><i class="icon-facebook"></i> Facebook</a>
 
-                                <a href="#" id="share_twitter" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_twitter" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="icon-twitter"></i> Twitter</a>
+                                <a href="#" id="share_twitter" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_twitter" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="icon-twitter"></i> Twitter</a>
 
-                                <a href="#" id="share_google" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_gplus" data-toggle="tooltip" data-placement="right" title="Share on Google+"><i class="icon-google-plus-circle"></i> Google+</a>
+                                <a href="#" id="share_google" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_gplus" data-toggle="tooltip" data-placement="right" title="Share on Google+"><i class="icon-google-plus-circle"></i> Google+</a>
                             </div>
                         </div>
                     </div>
@@ -62,11 +62,11 @@
                                 <i class="icon-share"></i> Share
                             </a>
                             <div class="dropdown-menu" aria-labelledby="socialShare">
-                                <a href="#" id="share_facebook" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_facebook" data-toggle="tooltip" data-placement="right" title="Share on Facebook"><i class="icon-facebook"></i> Facebook</a>
+                                <a href="#" id="share_facebook" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_facebook" data-toggle="tooltip" data-placement="right" title="Share on Facebook"><i class="icon-facebook"></i> Facebook</a>
 
-                                <a href="#" id="share_twitter" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_twitter" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="icon-twitter"></i> Twitter</a>
+                                <a href="#" id="share_twitter" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_twitter" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="icon-twitter"></i> Twitter</a>
 
-                                <a href="#" id="share_google" data-url="http://www.mydailysong.net/?page=dailysong.php" class="dropdown-item share_gplus" data-toggle="tooltip" data-placement="right" title="Share on Google+"><i class="icon-google-plus-circle"></i> Google+</a>
+                                <a href="#" id="share_google" data-url="https://www.mydailysong.net/?page=dailysong&rl_dt=<?php echo $actual_date ; ?>" class="dropdown-item share_gplus" data-toggle="tooltip" data-placement="right" title="Share on Google+"><i class="icon-google-plus-circle"></i> Google+</a>
                             </div>
                         </div>
                     </div>

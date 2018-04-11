@@ -12,7 +12,7 @@
                 <p><i class="icon-location"></i> Buea, Cameroon</p>
                 <p><i class="icon-phone"></i> +237 677 735 425</p>
                 <p><i class="icon-phone"></i> +237 694 217 912</p>
-                <p><a href="http://www.mydailsong.net/" target="_blank"><i class="icon-network"></i> mydailysong.net/</a></p>
+                <p><a href="https://www.mydailsong.net/" target="_blank"><i class="icon-network"></i> mydailysong.net/</a></p>
             </div>
         </div>
     </section>
