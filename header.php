@@ -25,6 +25,14 @@
         $title = 'Searching Options - My Daily Song';
         $subject = 'Searching Options page of My Daily Song';
     }
+    elseif($page[0] == 'privacy') {
+        $title = 'Privacy Concerns - My Daily Song';
+        $subject = 'Privacy Concerns page of My Daily Song';
+    }
+    elseif($page[0] == 'terms') {
+        $title = 'Terms and Conditions - My Daily Song';
+        $subject = 'Terms and Conditions page of My Daily Song';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +90,7 @@
 		</nav>
 
         <?php             
-            if($page[0] == 'search') {
+            if($page[0] == 'search' || $page[0] == 'privacy' || $page[0] == 'terms') {
         ?>
 
         <header class="search-header">
